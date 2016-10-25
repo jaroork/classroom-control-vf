@@ -48,6 +48,6 @@ file {'/etc/motd':
   owner => 'root',
   group => 'root',
   mode => '0644',
-  content => "Some witty comment\n",
+  content => "I learned how to add a file resource to site.pp\n",
   }
 }
