@@ -5,7 +5,7 @@ file { '/etc/sysconfig/memcached':
   group => 'root',
   owner => 'root',
   mode => '0644',
-  source => 'puppet///modules/memcached/memcached',
+  source => 'puppet:///modules/memcached/memcached',
   require => Package['memcached']
 }
 
