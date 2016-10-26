@@ -3,7 +3,3 @@ class users {
   ensure => present,
   }
 }
-
-node default {
-  include users,
-}
