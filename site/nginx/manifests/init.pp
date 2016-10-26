@@ -22,7 +22,7 @@ file { '/var/www/index.html':
   require => Package['nginx']
 }
 
-file { '':
+file { '/etc/nginx/conf.d/default.conf':
   ensure => 'file',
   group => 'root',
   owner => 'root',
