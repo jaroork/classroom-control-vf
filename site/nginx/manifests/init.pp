@@ -4,6 +4,13 @@ package { 'nginx':
   ensure => present,
 }
 
+file {'/var/www':
+  ensure => 'directory',
+  owner => 'root',
+  group => 'root',
+  mode => '0664',
+}
+
 file { '/etc/nginx/nginx.conf':
   ensure => 'file',
   group => 'root',
