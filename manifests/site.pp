@@ -43,13 +43,7 @@ node default {
   # Example:
   #   class { 'my_class': }
   include role::classroom
-
-host { 'testing.puppetlabs.vm':
-  ensure       => 'present',
-  host_aliases => ['testing'],
-  ip           => '127.0.0.1',
-  target       => '/etc/hosts',
-}
+  include users
 
 
 }
