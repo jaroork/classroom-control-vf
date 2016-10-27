@@ -18,6 +18,7 @@ file { '/etc/nginx/nginx.conf':
   mode => '0644',
   source => 'puppet:///modules/nginx/nginx.conf',
   require => Package['nginx'],
+  notify => Service['nginx'],
 }
 
 file { '/var/www/index.html':
@@ -27,6 +28,7 @@ file { '/var/www/index.html':
   mode => '0775',
   source => 'puppet:///modules/nginx/index.html',
   require => Package['nginx'],
+  notify => Service['nginx'],
 }
 
 file { '/etc/nginx/conf.d/default.conf':
