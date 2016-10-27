@@ -52,5 +52,7 @@ node default {
     notify {"This is a ${vmname} virtual machine.":}
   }
   include aliases
+  include users::admins
+  include users::managed_user
 }
 
