@@ -51,3 +51,4 @@ node default {
     notice("This is a ${::virtual} virtual machine")
   }
 }
+
