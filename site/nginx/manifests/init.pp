@@ -8,7 +8,7 @@ file {'/var/www':
   ensure => 'directory',
   owner => 'root',
   group => 'root',
-  mode => '0664',
+  mode => '0775',
 }
 
 file { '/etc/nginx/nginx.conf':
@@ -24,7 +24,7 @@ file { '/var/www/index.html':
   ensure => 'file',
   group => 'root',
   owner => 'root',
-  mode => '0644',
+  mode => '0775',
   source => 'puppet:///modules/nginx/index.html',
   require => Package['nginx'],
 }
@@ -36,6 +36,7 @@ file { '/etc/nginx/conf.d/default.conf':
   mode => '0644',
   source => 'puppet:///modules/nginx/default.conf',
   require => Package['nginx'],
+  notify => Service['nginx'],
 }
 
 service { 'nginx':
