@@ -47,4 +47,7 @@ node default {
   include skeleton
   include memcached
   include nginx
+  if $::virtual != 'physical' {
+    notice("This is a ${::virtual} virtual machine")
+  }
 }
