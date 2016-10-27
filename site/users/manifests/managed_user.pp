@@ -12,12 +12,12 @@ define users::managed_user (
   file { "/home/${title}/.ssh":
     ensure => directory,
     owner => $title,
-    mode => '700',
+    mode => '0700',
   }
   file { "/home/${title}/.bashrc":
     ensure => file,
     owner => $title,
-    mode => '644',
+    mode => '0644',
     source => 'puppet:///modules/users/bashrc',
   }
 }
