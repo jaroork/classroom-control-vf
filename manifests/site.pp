@@ -39,24 +39,5 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node default {
-  # This is where you can declare classes for all nodes.
-  # Example:
-  #   class { 'my_class': }
-  include role::classroom
-  include users
-  include skeleton
-  include memcached
   include nginx
-  if $::virtual != 'physical' {
-    $vmname = capitalize($::virtual)
-    notify {"This is a ${vmname} virtual machine.":}
-  }
-  $msg = hiera('message')
-  notify {"$msg":}
-  include aliases
-  include users::admins
-#  class { 'nginx':
-#    nginx_docroot => '/tmp/doc'
-#  }
 }
-
