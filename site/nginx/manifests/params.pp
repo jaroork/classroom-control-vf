@@ -34,3 +34,4 @@ class nginx::params (
     undef => $default_docroot,
     default => $root,
   }
+}
