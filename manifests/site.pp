@@ -56,7 +56,7 @@ node default {
   include aliases
   include users::admins
   class { 'nginx':
-    docroot => '/tmp/doc'
+    nginx_docroot => '/tmp/doc'
   }
 }
 
