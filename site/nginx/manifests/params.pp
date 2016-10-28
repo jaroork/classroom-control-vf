@@ -1,9 +1,8 @@
-class nginx::params (
-  $root = undef,
-) {
+class nginx::params {
+
   case $::osfamily {
     'RedHat','Debian': {
-      $default_docroot = '/var/www'
+      $docroot = '/var/www'
       $logsdir = '/var/log/nginx'
       $confdir = '/etc/nginx'
       $blckdir = '/etc/nginx/conf.d'
@@ -13,7 +12,7 @@ class nginx::params (
       $svcname = 'nginx'
     }
     'windows': {
-      $default_docroot = 'C:/ProgramData/nginx/html'
+      $docroot = 'C:/ProgramData/nginx/html'
       $logsdir = 'C:/ProgramData/nginx/logs'
       $confdir = 'C:/ProgramData/nginx'
       $blckdir = 'C:/ProgramData/nginx/conf.d'
@@ -28,10 +27,5 @@ class nginx::params (
     'RedHat'  => 'nginx',
     'Debian'  => 'www-data',
     'windows' => 'nobody',
-  }
-  
-  $docroot = $root ? {
-    undef => $default_docroot,
-    default => $root,
   }
 }
