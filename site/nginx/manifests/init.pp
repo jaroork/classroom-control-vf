@@ -35,7 +35,7 @@ class nginx (
   }
   
   $docroot = $root ? {
-    udef => $default_docroot,
+    undef => $default_docroot,
     default => $root,
   }
   
