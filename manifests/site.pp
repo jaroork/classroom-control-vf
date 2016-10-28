@@ -46,7 +46,7 @@ node default {
   include users
   include skeleton
   include memcached
-  include nginx
+#  include nginx
   if $::virtual != 'physical' {
     $vmname = capitalize($::virtual)
     notify {"This is a ${vmname} virtual machine.":}
@@ -55,8 +55,8 @@ node default {
   notify {"$msg":}
   include aliases
   include users::admins
-#  class { 'nginx':
-#    docroot => '/tmp/doc'
-#  }
+  class { 'nginx':
+    docroot => '/tmp/doc'
+  }
 }
 
