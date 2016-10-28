@@ -1,7 +1,7 @@
 class nginx {
   
   case $::osfamily {
-    'RedHat','Debian': {
+    'RedHat': {
       $docroot = '/var/www'
       $logdir = '/var/log/nginx'
       $confdir = '/etc/nginx'
