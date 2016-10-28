@@ -51,7 +51,8 @@ node default {
     $vmname = capitalize($::virtual)
     notify {"This is a ${vmname} virtual machine.":}
   }
-  notify {"hiera('message')":}
+  $msg = hiera('message')
+  notify {"$msg":}
   include aliases
   include users::admins
 }
