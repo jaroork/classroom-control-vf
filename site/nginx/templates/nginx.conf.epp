@@ -2,15 +2,12 @@
 #   * Official English Documentation: http://nginx.org/en/docs/
 #   * Official Russian Documentation: http://nginx.org/ru/docs/
 
-user              <%= $nginx::user %>;
+user              <%= $nginx::svcuser %>;
 worker_processes  1;
 
-error_log  <%= $nginx::logdir %>/error.log;
-#error_log  /var/log/nginx/error.log  notice;
-#error_log  /var/log/nginx/error.log  info;
+error_log  <%= $nginx::logsdir %>/error.log;
 
 pid        /var/run/nginx.pid;
-
 
 events {
     worker_connections  1024;
@@ -25,18 +22,13 @@ http {
                       '$status $body_bytes_sent "$http_referer" '
                       '"$http_user_agent" "$http_x_forwarded_for"';
 
-    access_log  <%= $nginx::logdir %>/access.log  main;
+    access_log  <%= $nginx::logsdir %>/access.log  main;
 
     sendfile        on;
-    #tcp_nopush     on;
-
-    #keepalive_timeout  0;
     keepalive_timeout  65;
-
-    #gzip  on;
 
     # Load config files from the /etc/nginx/conf.d directory
     # The default server is in conf.d/default.conf
-    include <%= nginx::blockdir %>/*.conf;
+    include <%= $nginx::blckdir %>/*.conf;
 
 }
