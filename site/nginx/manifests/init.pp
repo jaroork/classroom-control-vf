@@ -17,7 +17,6 @@ class nginx {
   
   $user = $::osfamily ? {
     'Redhat' => 'nginx'
-    'Debian' => 'www-data'
     'windows' => 'nobody'
   }
   
