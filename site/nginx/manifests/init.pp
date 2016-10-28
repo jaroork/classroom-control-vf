@@ -8,39 +8,39 @@ class nginx (
   $nginx_filegrp = $nginx::params::filegrp,
   $nginx_svcname = $nginx::params::svcname,
   $nginx_docroot = $nginx::params::docroot,
-) {
+) inherits nginx::params {
   
   File {
     ensure => file,
-    owner  => $fileown,
-    group  => $filegrp,
+    owner  =>  $nginx_fileown,
+    group  => $nginx_filegrp,
     mode   => '0644',
   }
 
-  package { $pkgname:
+  package { $nginx_pkgname:
     ensure => present,
-    before => [File["${blckdir}/default.conf"],File["${confdir}/nginx.conf"]],
+    before => [File["${nginx_blckdir}/default.conf"],File["${nginx_confdir}/nginx.conf"]],
   }
   
-  file { $docroot: 
+  file { $nginx_docroot: 
     ensure => directory,
   }
   
-  file { "${docroot}/index.html":
+  file { "${nginx_docroot}/index.html":
     source => 'puppet:///modules/nginx/index.html',
   }
   
-  file { "${blckdir}/default.conf":
+  file { "${nginx_blckdir}/default.conf":
     content  => epp('nginx/default.conf.epp'),
   }
   
-  file { "${confdir}/nginx.conf":
+  file { "${nginx_confdir}/nginx.conf":
     content  => epp('nginx/nginx.conf.epp'),
 }
     
-  service { $svcname:
+  service { $nginx_svcname:
     ensure    => running,
     enable    => true,
-    subscribe => [File["${blckdir}/default.conf"],File["${confdir}/nginx.conf"]],
+    subscribe => [File["${nginx_blckdir}/default.conf"],File["${nginx_confdir}/nginx.conf"]],
   }
 }
