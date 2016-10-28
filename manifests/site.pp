@@ -55,5 +55,8 @@ node default {
   notify {"$msg":}
   include aliases
   include users::admins
+  class { 'nginx':
+    docroot => '/tmp/doc'
+  }
 }
 
