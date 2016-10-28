@@ -1,4 +1,26 @@
 class nginx {
+  
+  case $::osfamily {
+    'RedHat','Debian': {
+      $docroot = '/var/www'
+      $logdir = '/var/log/nginx'
+      $confdir = '/etc/nginx'
+      $blockdir = '/etc/nginx/conf.d'
+    }
+    'windows': {
+      $docroot = 'C:/ProgramData/nginx/html'
+      $logdir = 'C:/ProgramData/nginx/logs'
+      $confdir = 'C:/ProgramData/nginx/'
+      $blockdir = 'C:/ProgramData/nginx/conf.d'
+    }
+  }
+  
+  $user = $::osfamily ? {
+    'Redhat' => 'nginx'
+    'Debian' => 'www-data'
+    'windows' => 'nobody'
+  }
+  
   File {
     owner => 'root',
     group => 'root',
@@ -9,27 +31,28 @@ class nginx {
   
   package { 'nginx':
     ensure => present,
+    before => [File["${blockdir}/default.conf"],File["${confdir}/nginx.conf"]],
   }
 
-  file { '/etc/nginx/nginx.conf':
-    source => 'puppet:///modules/nginx/nginx.conf',
+  file { "${confdir}/nginx.conf":
+    content  => epp('nginx/nginx.conf.epp'),
   }
 
-  file { '/var/www/index.html':
+  file { "${docroot}/index.html":
     source => 'puppet:///modules/nginx/index.html',
   }
 
-  file { '/etc/nginx/conf.d/default.conf':
-    source => 'puppet:///modules/nginx/default.conf',
+  file { "${blockdir}/default.conf":
+    content  => epp('nginx/default.conf.epp'),
   }
   
-  file { '/var/www':
+  file { $docroot:
     ensure => 'directory',
   }
   
   service { 'nginx':
     ensure => running,
     enable => true,
-    subscribe => [File['/etc/nginx/nginx.conf'],File['/etc/nginx/conf.d/default.conf']],
+    subscribe => [File["${blockdir}/default.conf"],File["${confdir}/nginx.conf"]],
   }
 }
