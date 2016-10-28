@@ -7,17 +7,10 @@ class nginx {
       $confdir = '/etc/nginx'
       $blockdir = '/etc/nginx/conf.d'
     }
-    'windows': {
-      $docroot = 'C:/ProgramData/nginx/html'
-      $logdir = 'C:/ProgramData/nginx/logs'
-      $confdir = 'C:/ProgramData/nginx/'
-      $blockdir = 'C:/ProgramData/nginx/conf.d'
-    }
   }
   
   $user = $::osfamily ? {
     'Redhat' => 'nginx'
-    'windows' => 'nobody'
   }
   
   File {
